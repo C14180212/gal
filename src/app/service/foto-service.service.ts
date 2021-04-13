@@ -35,7 +35,6 @@ export class FotoServiceService {
       value: JSON.stringify(this.dataPhoto)
     })
     this.simpan(Foto)
-  
   }
 
 

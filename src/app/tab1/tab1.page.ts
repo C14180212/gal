@@ -1,8 +1,9 @@
+import { getLocaleNumberFormat } from '@angular/common';
 import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs/internal/Observable';
-import { FotoServiceService } from '../service/foto-service.service';
+import { FotoServiceService, Photo } from '../service/foto-service.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class Tab1Page {
   tanggal : string; 
   nilai : string;
 
-
+  urlImageStorage : string[] = [];
+  po : string;
   constructor(afs : AngularFirestore, public fotoSer : FotoServiceService, private afStorage : AngularFireStorage) {
     this.isidataColl = afs.collection('datacoba');
     this.isidata = this.isidataColl.valueChanges();
@@ -33,23 +35,30 @@ export class Tab1Page {
     this.fotoSer.tambahFoto();
   }
 
-  simpan(){   
+  simpan(){
+    for (var index in this.fotoSer.dataPhoto)
+    {
+      const imagePath = `imgStorage/${this.fotoSer.dataPhoto[index].filePath}`;
+      this.afStorage.upload(imagePath, this.fotoSer.dataPhoto[index].dataImage).then(() => {
+       this.afStorage.storage.ref().child(imagePath).getDownloadURL().then((url)=>
+       {this.urlImageStorage.unshift(url)});
+      });
+    }   
+    
     this.isidataColl.doc(this.judul).set({
       judul : this.judul, 
       isi : this.isi,
       tanggal : this.tanggal,
-      nilai : this.nilai
+      nilai : this.nilai,
+      image : this.urlImageStorage
     })
   }
-  hapus(){
-    
-  }
 }
-
 
 interface data {
   judul : string,
   isi : string,
   tanggal : string,
-  nilai : string
+  nilai : string,
+  image : string[]
 }
