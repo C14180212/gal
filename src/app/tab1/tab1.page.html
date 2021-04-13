@@ -32,7 +32,6 @@
 
   <ion-list>
     <ion-item *ngFor="let data of isidata| async"> 
-
       <h1>{{data.judul}}</h1>
       <p>{{data.tanggal}}</p>
       <ion-button (click)="hapus(index)">
@@ -41,6 +40,9 @@
       <ion-button (click)="update()">
         <ion-icon color="primary" name="arrow-up-outline"></ion-icon>
       </ion-button>
+    </ion-item>
+    <ion-item *ngFor="let i of urlImageStorage">
+      <ion-img [src]="i"></ion-img>
     </ion-item>
   </ion-list>
 

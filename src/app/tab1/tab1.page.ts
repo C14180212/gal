@@ -49,8 +49,7 @@ export class Tab1Page {
       judul : this.judul, 
       isi : this.isi,
       tanggal : this.tanggal,
-      nilai : this.nilai,
-      image : this.urlImageStorage
+      nilai : this.nilai
     })
   }
 }
@@ -60,5 +59,4 @@ interface data {
   isi : string,
   tanggal : string,
   nilai : string,
-  image : string[]
 }
