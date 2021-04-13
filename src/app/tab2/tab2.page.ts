@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FotoServiceService } from '../service/foto-service.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +9,20 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
 
+  constructor(public fotoSer : FotoServiceService, private afStorage : AngularFireStorage) {}
+
+
+/*   async ngOnInit(){
+    await this.fotoSer.loadFoto();
+  }
+
+  uploadFoto(){
+    for (var index in this.fotoSer.dataPhoto)
+    {
+      const imgFilep =  `imgStorage/${this.fotoSer.dataPhoto[index].filePath}`;
+      this.afStorage.upload(imgFilep, this.fotoSer.dataPhoto[index].dataImage)
+    }
+    console.log("uploadberhasil")
+  } */
 }
